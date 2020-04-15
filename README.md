@@ -3,6 +3,7 @@ This project is for 3rd year 1st semester PAF module.
 
 
 ---------------------------SQL script-----------------------------------------
+
 create database paf;
 
 use paf;
