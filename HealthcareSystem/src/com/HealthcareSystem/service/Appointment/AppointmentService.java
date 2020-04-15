@@ -35,17 +35,17 @@ public class AppointmentService {
 	
 	public String insertAppointment
 	(	@FormParam("user_id") String user_id,
-		@FormParam("username") String username,
+		//@FormParam("username") String username,
 		@FormParam("doctor_id") String doctor_id,
-		@FormParam("doctor_name") String doctor_name,
+		//@FormParam("doctor_name") String doctor_name,
 		@FormParam("hospital_id") String hospital_id,
-		@FormParam("hospital_name") String hospital_name,
+		//@FormParam("hospital_name") String hospital_name,
 		@FormParam("appointment_time") String appointment_time,
 		@FormParam("appointment_date") String appointment_date,
 		@FormParam("WardNo") String WardNo)
 	
 	{
-		String output = appointmentObj.insertAppointment(user_id, username, doctor_id, doctor_name,hospital_id,hospital_name,appointment_time,appointment_date,WardNo);
+		String output = appointmentObj.insertAppointment(user_id, doctor_id, hospital_id, appointment_time, appointment_date, WardNo);
 	
 		return output;
 	}
@@ -64,16 +64,16 @@ public class AppointmentService {
 		//Read the values from the JSON object
 		String appointment_id = appointmentObject.get("appointment_id").getAsString();
 		String user_id = appointmentObject.get("user_id").getAsString();
-		String username = appointmentObject.get("username").getAsString();
+		//String username = appointmentObject.get("username").getAsString();
 		String doctor_id = appointmentObject.get("doctor_id").getAsString();
-		String doctor_name = appointmentObject.get("doctor_name").getAsString();
+		//String doctor_name = appointmentObject.get("doctor_name").getAsString();
 		String hospital_id = appointmentObject.get("hospital_id").getAsString();
-		String hospital_name = appointmentObject.get("hospital_name").getAsString();
+		//String hospital_name = appointmentObject.get("hospital_name").getAsString();
 		String appointment_time = appointmentObject.get("appointment_time").getAsString();
 		String appointment_date = appointmentObject.get("appointment_date").getAsString();
 		String WardNo = appointmentObject.get("WardNo").getAsString();
 	 
-		String output = appointmentObj.updateAppointment(appointment_id, user_id, username, doctor_id, doctor_name,hospital_id,hospital_name,appointment_time,appointment_date,WardNo);
+		String output = appointmentObj.updateAppointment(appointment_id, user_id, doctor_id, hospital_id, appointment_time, appointment_date, WardNo);
 	
 		return output;
 	}
@@ -95,5 +95,6 @@ public class AppointmentService {
 		String output = appointmentObj.deleteAppointment(appointment_id);
 		return output;
 	}
+
 
 }
