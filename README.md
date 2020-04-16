@@ -2,6 +2,57 @@
 This project is for 3rd year 1st semester PAF module.
 
 
+--------------------------- Add these dependencies to POM.xml---------------------------------------
+
+<dependency>
+  <groupId>com.sun.jersey</groupId>
+  <artifactId>jersey-bundle</artifactId>
+  <version>1.19.4</version>
+</dependency>
+<dependency>
+  <groupId>com.sun.jersey</groupId>
+  <artifactId>jersey-core</artifactId>
+  <version>1.19.4</version>
+</dependency>
+<dependency>
+  <groupId>com.sun.jersey</groupId>
+  <artifactId>jersey-server</artifactId>
+  <version>1.19.4</version>
+</dependency>
+<dependency>
+  <groupId>mysql</groupId>
+  <artifactId>mysql-connector-java</artifactId>
+  <version>8.0.19</version>
+</dependency>
+<dependency>
+  <groupId>com.google.code.gson</groupId>
+  <artifactId>gson</artifactId>
+  <version>2.2.3</version>
+</dependency>
+<dependency>
+  <groupId>org.jsoup</groupId>
+  <artifactId>jsoup</artifactId>
+  <version>1.8.1</version>
+</dependency>
+
+---------------------------Configure the servlet mapping in web.xml--------------
+
+<servlet>
+    <servlet-name>Jersey Web Application</servlet-name>
+    <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+    <load-on-startup>1</load-on-startup>
+</servlet>
+<servlet-mapping>
+    <servlet-name>Jersey Web Application</servlet-name>
+    <url-pattern>/AppointmentService/*</url-pattern>
+</servlet-mapping>
+
+------------------------------------URL------------------------------------------
+
+http://localhost:8080/HealthcareSystem/AppointmentService/Appointments
+
+----------------------------------------------------------------------------
+
 ---------------------------SQL script-----------------------------------------
 
 
