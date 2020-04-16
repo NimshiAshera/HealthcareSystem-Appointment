@@ -33,7 +33,9 @@ public class AppointmentResources {
 					
 					output = "<table border=\"1\"><tr><th>Appointment ID</th><th>Patient ID</th><th>Patient Name</th><th>Doctor ID</th><th>Doctor Name</th><th>Hospital ID</th><th>Hospital Name</th><th>Appointment Time</th><th>Appointment Date</th><th>Ward No</th></tr>";
 			 
-					String query = "select a.appointment_id,u.user_id,u.username,d.doctor_id,d.doctor_name,h.hospital_id,h.name,a.appointment_time,a.appointment_date,a.WardNo from users u, doctor d, hospital h,appointment_room r, appointments a where u.user_id=a.user_id and d.doctor_id=a.doctor_id and h.hospital_id=a.hospital_id and r.appointment_room_id=a.WardNo and h.hospital_id=r.hospital_ID";
+					String query = "select a.appointment_id,u.user_id,u.username,v.doctor_id,v.doctor_name,v.hospital_id,v.name,v.appointment_time,v.appointment_date,v.WardNo\r\n" + 
+							"from users u, appointments a, appointment_view v\r\n" + 
+							"where u.user_id=a.user_id and a.ref_id=v.ref_id;";
 				
 					PreparedStatement stmt = conn.prepareStatement(query);
 					ResultSet rs = stmt.executeQuery(query);
@@ -85,7 +87,7 @@ public class AppointmentResources {
 			
 			// insert new appointments.
 			
-			public String insertAppointment(String user_id, String doctor_id, String hospital_id, String appointment_time, String appointment_date, String WardNo )
+			public String insertAppointment(String ref_id,String user_id)
 			{
 				String output = "";
 				
@@ -101,23 +103,18 @@ public class AppointmentResources {
 					}
 			
 					// create a prepared statement
-			
-					String query = " insert into appointments(`appointment_id`,`user_id`,`doctor_id`,`hospital_id`,`appointment_time`,`appointment_date`,`WardNo`)" + " values (?, ?, ?, ?, ?, ?, ?)";
+					
+					String query = " insert into appointments(`appointment_id`,`ref_id`,`user_id`)" + " values (?, ?, ?)";
 			 
 					PreparedStatement preparedStmt = conn.prepareStatement(query);
 			
 					// binding values
 			
 					preparedStmt.setInt(1, 0);
-					preparedStmt.setString(2, user_id);
+					preparedStmt.setString(2, ref_id);
 					//preparedStmt.setString(3, username);
-					preparedStmt.setString(3, doctor_id);
-					//preparedStmt.setString(5, doctor_name); 
-					preparedStmt.setString(4, hospital_id);
-					//preparedStmt.setString(7, hospital_name);
-					preparedStmt.setString(5, appointment_time);
-					preparedStmt.setString(6, appointment_date); 
-					preparedStmt.setString(7, WardNo); 
+					preparedStmt.setString(3, user_id);
+					 
 			
 					// execute the statement
 					preparedStmt.execute();
@@ -136,7 +133,7 @@ public class AppointmentResources {
 			
 			//update appointments
 			
-			public String updateAppointment(String appointment_id, String user_id, String doctor_id, String hospital_id, String appointment_time, String appointment_date, String WardNo)
+			public String updateAppointment(String appointment_id, String ref_id, String user_id)
 			{
 				String output = "";
 			
@@ -151,21 +148,13 @@ public class AppointmentResources {
 							return "Error while connecting to the database for updating."; }
 			 
 						// create a prepared statement
-						String query = "UPDATE appointments SET user_id=?, doctor_id=?, hospital_id=?, appointment_time=?, appointment_date=?, WardNo=?  WHERE appointment_id=?";
+						String query = "UPDATE appointments SET user_id=? WHERE appointment_id=?";
 						
 						PreparedStatement preparedStmt = conn.prepareStatement(query);
 						
 						// binding values
 						preparedStmt.setString(1, user_id);
-						//preparedStmt.setString(2, username);
-						preparedStmt.setString(2, doctor_id);
-						//preparedStmt.setString(4, doctor_name);
-						preparedStmt.setString(3, hospital_id);
-						//preparedStmt.setString(6, hospital_name);
-						preparedStmt.setString(4, appointment_time);
-						preparedStmt.setString(5, appointment_date);
-						preparedStmt.setString(6, WardNo);
-						preparedStmt.setInt(7, Integer.parseInt(appointment_id)); 
+						preparedStmt.setInt(2, Integer.parseInt(appointment_id)); 
 			
 						// execute the statement
 						preparedStmt.execute();
@@ -203,28 +192,29 @@ public class AppointmentResources {
 					{
 						return "Error while connecting to the database for deleting."; }
 			
-						// create a prepared statement
-						String query = "delete from appointments where appointment_id=?";
-						PreparedStatement preparedStmt = conn.prepareStatement(query);
-						
-						// binding values
-						preparedStmt.setInt(1, Integer.parseInt(appointment_id));
+					// create a prepared statement
+					String query = "delete from appointments where appointment_id=?";
+					PreparedStatement preparedStmt = conn.prepareStatement(query);
+					
+					// binding values
+					preparedStmt.setInt(1, Integer.parseInt(appointment_id));
+		
+					// execute the statement
+					preparedStmt.execute();
+					
+					conn.close();
+		 
+					output = "Deleted successfully";
+		
+				}
+		
+				catch (Exception e)
+				{
+		
+					output = "Error while deleting the appointment.";
+					System.err.println(e.getMessage());
+				}
 			
-						// execute the statement
-						preparedStmt.execute();
-						
-						conn.close();
-			 
-						output = "Deleted successfully";
-			
-					}
-			
-					catch (Exception e)
-					{
-			
-						output = "Error while deleting the appointment.";
-						System.err.println(e.getMessage());
-					}
 				return output;
 				
 				} 
