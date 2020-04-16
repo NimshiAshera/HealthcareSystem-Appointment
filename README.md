@@ -89,8 +89,6 @@ CREATE TABLE `appointments` (
   `WardNo` varchar(10) NOT NULL
 
 );  
-
-drop table appointments;
   
  CREATE TABLE `payment` (
   `payment_id` int NOT NULL,
@@ -104,14 +102,20 @@ drop table appointments;
   `status` varchar(255) NOT NULL
 ) ; 
   
-  CREATE TABLE `hospital` (
-  `hospital_id` int NOT NULL,
+CREATE TABLE `hospital` (
+  `hospital_id` int NOT NULL primary key,
   `name` varchar(255) NOT NULL,
   `address` varchar(255) NOT NULL,
   `phone` varchar(15) NOT NULL,
-  `appointment_room_no` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL
 ); 
+  
+  CREATE TABLE `appointment_room` (
+	`appointment_room_id` VARCHAR(100) NOT NULL PRIMARY KEY,
+	`description` VARCHAR(45) NULL,
+	`hospital_ID` INT,
+	CONSTRAINT `hospital_id_fk` FOREIGN KEY (`hospital_ID`) REFERENCES `hospital`(`hospital_id`) 
+    );
   
   CREATE TABLE `card_details` (
   `payment_id` int NOT NULL,
@@ -125,6 +129,7 @@ drop table appointments;
  select * from users;
  select * from doctor;
  select * from hospital;
+ select * from appointment_room;
  select * from appointments;
  select * from payment;
  select * from card_details;
@@ -139,15 +144,32 @@ insert into doctor values (105,'Mrs.Yapa','General Medicine',1908,'Kalutara','07
 insert into doctor values (5609,'Mr.Suwaris','Dentist',3028,'Colombo','0725050500');
 insert into doctor values (2340,'MrS.Silva','Dentist',990,'Colombo','0725050500');
 
-insert into hospital values (234,'General Hospital','Colombo','0112450234','20','general_h@yahoo.com');
-insert into hospital values (3400,'New Philip','Kalutara','0112450234','20','new_p@yahoo.com');
-insert into hospital values (567,'Panadura Hospital','Panadura','0112450234','20','panadura_h@yahoo.com');
-insert into hospital values (17000,'Hemas Hospital','Battaramulla','0115450234','20','hh@yahoo.com');
+insert into hospital values(1,'Kandy Private Hospital','No.110,Kandy Road, Mapanawathura',0811234567,'kph@gmail.com'),
+							                 (2,'Asiri Hospital','No.12,kirimandala road, kirulapana',0112349567,'asirihospital@gmail.com'),
+                               (3,'Nawaloka Hospital','No.169,Colombo Rd,Negambo',0315777773,'nawaloka20@gmail.com'),
+                               (4,'Lanka Hospitals','578 Elvitigala Mawatha, Colombo 00500',011234877,'lankahospital@gmail.com'),
+                               (5,'Durdans Hospital','3 Alfred Pl, Colombo 00300',0112140000,'durdanshospital@gmail.com'),
+                               (6,'Asiri Hospital Matara','No 26, Esplanade Rd Uyanwatta, 81000',04175505540,'asirihospital@gmail.com');
+                               
+insert into appointment_room values('KPH001','DENTISTS',1),
+									                     ('KPH002','CARDIOLOGISTS',1),
+                                       ('AHC001','NEPHROLOGIST',2),
+                                       ('AHC002','ONCOLOGY',2),
+                                       ('NH001','PULMONOLOGIST',3),
+                                       ('NH002','CARDIOLOGISTS',3),
+                                       ('LH001','NEPHROLOGIST',4),
+                                       ('LH002','PULMONOLOGIST',4),
+                                       ('DH001','CARDIOLOGISTS',5),
+                                       ('DH002','ONCOLOGY',5),
+                                       ('AHM001','CONSULTANT',6);
 
-insert into appointments(user_id,doctor_id,hospital_id,appointment_time,appointment_date,WardNo) values (1,100,234,'18-30.00','2020-05-03','N21');
-insert into appointments(user_id,doctor_id,hospital_id,appointment_time,appointment_date,WardNo) values (2,105,3400,'16-00.00','2020-04-28','201');
-insert into appointments(user_id,doctor_id,hospital_id,appointment_time,appointment_date,WardNo) values (4,5609,567,'18-30.00','2020-04-20','N-101');
+
+
+insert into appointments(user_id,doctor_id,hospital_id,appointment_time,appointment_date,WardNo) values (1,100,2,'18-30.00','2020-05-03','AHC001');
+insert into appointments(user_id,doctor_id,hospital_id,appointment_time,appointment_date,WardNo) values (2,105,6,'16-00.00','2020-04-28','AHM001');
+insert into appointments(user_id,doctor_id,hospital_id,appointment_time,appointment_date,WardNo) values (4,5609,1,'18-30.00','2020-04-20','KPH001');
 
 select a.appointment_id,u.user_id,u.username,d.doctor_id,d.doctor_name,h.hospital_id,h.name,a.appointment_time,a.appointment_date,a.WardNo
-from users u, doctor d, hospital h, appointments a
-where u.user_id=a.user_id and d.doctor_id=a.doctor_id and h.hospital_id=a.hospital_id;
+from users u, doctor d, hospital h,appointment_room r, appointments a
+where u.user_id=a.user_id and d.doctor_id=a.doctor_id and h.hospital_id=a.hospital_id and r.appointment_room_id=a.WardNo and h.hospital_id=r.hospital_ID;
+
