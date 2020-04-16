@@ -34,18 +34,12 @@ public class AppointmentService {
 	@Produces(MediaType.TEXT_PLAIN)
 	
 	public String insertAppointment
-	(	@FormParam("user_id") String user_id,
-		//@FormParam("username") String username,
-		@FormParam("doctor_id") String doctor_id,
-		//@FormParam("doctor_name") String doctor_name,
-		@FormParam("hospital_id") String hospital_id,
-		//@FormParam("hospital_name") String hospital_name,
-		@FormParam("appointment_time") String appointment_time,
-		@FormParam("appointment_date") String appointment_date,
-		@FormParam("WardNo") String WardNo)
-	
+	(	@FormParam("ref_id") String ref_id,
+		@FormParam("user_id") String user_id
+	)
+			
 	{
-		String output = appointmentObj.insertAppointment(user_id, doctor_id, hospital_id, appointment_time, appointment_date, WardNo);
+		String output = appointmentObj.insertAppointment(ref_id,user_id);
 	
 		return output;
 	}
@@ -63,17 +57,10 @@ public class AppointmentService {
 	
 		//Read the values from the JSON object
 		String appointment_id = appointmentObject.get("appointment_id").getAsString();
+		String ref_id = appointmentObject.get("ref_id").getAsString();
 		String user_id = appointmentObject.get("user_id").getAsString();
-		//String username = appointmentObject.get("username").getAsString();
-		String doctor_id = appointmentObject.get("doctor_id").getAsString();
-		//String doctor_name = appointmentObject.get("doctor_name").getAsString();
-		String hospital_id = appointmentObject.get("hospital_id").getAsString();
-		//String hospital_name = appointmentObject.get("hospital_name").getAsString();
-		String appointment_time = appointmentObject.get("appointment_time").getAsString();
-		String appointment_date = appointmentObject.get("appointment_date").getAsString();
-		String WardNo = appointmentObject.get("WardNo").getAsString();
 	 
-		String output = appointmentObj.updateAppointment(appointment_id, user_id, doctor_id, hospital_id, appointment_time, appointment_date, WardNo);
+		String output = appointmentObj.updateAppointment(appointment_id, ref_id, user_id);
 	
 		return output;
 	}
