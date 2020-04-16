@@ -4,6 +4,7 @@ This project is for 3rd year 1st semester PAF module.
 
 ---------------------------SQL script-----------------------------------------
 
+
 create database paf;
 
 use paf;
@@ -80,6 +81,7 @@ drop table appointments;
 insert into users values(1,'Shone','0342040123',26,'Nugegoda','M','cs@gmail.com');
 insert into users values(2,'Nimshi','0762040123',24,'Kalutara','F','na@gmail.com');
 insert into users values(4,'Danisha','0712040123',32,'Wadduwa','M','d32@gmail.com');
+insert into users values(3,'Savini','0752040156',20,'Moratuwa','F','sh@gmail.com');
 
 insert into doctor values (100,'Mr.Perera','ENT',1028,'Colombo','0785050500');
 insert into doctor values (105,'Mrs.Yapa','General Medicine',1908,'Kalutara','0705050500');
