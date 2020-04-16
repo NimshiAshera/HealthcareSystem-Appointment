@@ -31,9 +31,9 @@ public class AppointmentResources {
 			 
 					// Prepare the html table to be displayed
 					
-					output = "<table border=\"1\"><tr><th>Appointment ID</th><th>Patient ID</th><th>Patient Name</th><th>Doctor ID</th><th>Doctor Name</th><th>Hospital ID</th><th>Hospital Name</th><th>Appointment Time</th><th>Appointment Date</th><th>Ward No</th><th>Update</th><th>Remove</th></tr>";
+					output = "<table border=\"1\"><tr><th>Appointment ID</th><th>Patient ID</th><th>Patient Name</th><th>Doctor ID</th><th>Doctor Name</th><th>Hospital ID</th><th>Hospital Name</th><th>Appointment Time</th><th>Appointment Date</th><th>Ward No</th></tr>";
 			 
-					String query = "select a.appointment_id,u.user_id,u.username,d.doctor_id,d.doctor_name,h.hospital_id,h.name,a.appointment_time,a.appointment_date,a.WardNo from users u, doctor d, hospital h, appointments a where u.user_id=a.user_id and d.doctor_id=a.doctor_id and h.hospital_id=a.hospital_id";
+					String query = "select a.appointment_id,u.user_id,u.username,d.doctor_id,d.doctor_name,h.hospital_id,h.name,a.appointment_time,a.appointment_date,a.WardNo from users u, doctor d, hospital h,appointment_room r, appointments a where u.user_id=a.user_id and d.doctor_id=a.doctor_id and h.hospital_id=a.hospital_id and r.appointment_room_id=a.WardNo and h.hospital_id=r.hospital_ID";
 				
 					PreparedStatement stmt = conn.prepareStatement(query);
 					ResultSet rs = stmt.executeQuery(query);
@@ -65,8 +65,6 @@ public class AppointmentResources {
 						output += "<td>" + appointment_date + "</td>";
 						output += "<td>" + WardNo + "</td>";
 			
-						// buttons
-						output += "<td><input name=\"btnUpdate\" type=\"button\" value=\"Update\" class=\"btn btn-secondary\"></td>" + "<td><form method=\"post\" action=\"appointment.jsp\">" + "<input name=\"btnRemove\" type=\"submit\" value=\"Remove\" class=\"btn btn-danger\">" + "<input name=\"appointment_id\" type=\"hidden\" value=\"" + appointment_id + "\">" + "</form></td></tr>";
 					}
 			
 					conn.close();

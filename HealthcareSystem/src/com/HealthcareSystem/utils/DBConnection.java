@@ -9,7 +9,7 @@ public class DBConnection {
 		Connection conn = null;
 		
 		try {
-			//database name: paf, username: root, password: root
+
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/paf?useSSL=false", "root", "root");
 
