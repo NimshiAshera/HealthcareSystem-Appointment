@@ -27,6 +27,7 @@ public class AppointmentService {
 
 	 } 
 	
+	
 	@GET
 	@Path("/{appointment_id}")
 	@Produces(MediaType.TEXT_HTML)
