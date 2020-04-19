@@ -27,6 +27,16 @@ public class AppointmentService {
 
 	 } 
 	
+	@GET
+	@Path("/{appointment_id}")
+	@Produces(MediaType.TEXT_HTML)
+	
+	public String readRequiredAppointment(@PathParam("appointment_id") String appointment_id)
+	 {
+		return appointmentObj.readRequiredAppointment(appointment_id); 
+
+	 }
+	
 	
 	@POST
 	@Path("/")
