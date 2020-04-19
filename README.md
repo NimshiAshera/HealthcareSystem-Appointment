@@ -53,17 +53,17 @@ This project is for 3rd year 1st semester PAF module.
   </servlet-mapping>
 
 ------------------------------------URL------------------------------------------
-//read appointments
-http://localhost:8080/HealthcareSystem/AppointmentService/Appointments
-// read specific appointment
-http://localhost:8080/HealthcareSystem/AppointmentService/Appointments/3
-//insert/update/delete appointments
-http://localhost:8080/HealthcareSystem/AppointmentService/Appointments/
 
-//read appointment_views
-http://localhost:8080/HealthcareSystem/AppointmentViewService/View
-//insert/update/delete appointment_views
-http://localhost:8080/HealthcareSystem/AppointmentViewService/View/
+http://localhost:8080/HealthcareSystem/AppointmentService/Appointments    //read appointments
+
+http://localhost:8080/HealthcareSystem/AppointmentService/Appointments/3   // read specific appointment
+
+http://localhost:8080/HealthcareSystem/AppointmentService/Appointments/    //insert/update/delete appointments
+
+
+http://localhost:8080/HealthcareSystem/AppointmentViewService/View       //read appointment_views
+
+http://localhost:8080/HealthcareSystem/AppointmentViewService/View/       //insert/update/delete appointment views
 
 ----------------------------------------------------------------------------
 
