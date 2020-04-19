@@ -84,7 +84,7 @@ public class AppointmentResources {
 				return output;
 			 } 
 
-	
+			
 			//read specific appointments made by a patient
 			
 			public String readRequiredAppointment(String appointment_id)
@@ -157,7 +157,8 @@ public class AppointmentResources {
 			
 				return output;
 			 }
-		
+
+			
 			
 			// insert new appointments.
 			
